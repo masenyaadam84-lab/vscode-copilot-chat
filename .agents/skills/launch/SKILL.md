@@ -82,23 +82,23 @@ code-insiders \
   --extensionDevelopmentPath="$PWD" \
   --remote-debugging-port=9223 \
   --user-data-dir=~/.vscode-ext-debug
-
+set up
 # Wait for VS Code to start, retry until connected
 for i in 1 2 3 4 5; do agent-browser connect 9223 2>/dev/null && break || sleep 3; done
 agent-browser snapshot -i
 ```
-
+set up
 **Key flags:**
 - `--extensionDevelopmentPath=<path>` — loads your extension from source (must be compiled first). Use `$PWD` when running from the repo root.
 - `--remote-debugging-port=9223` — enables CDP (use 9223 to avoid conflicts with other apps on 9222)
 - `--user-data-dir=<path>` — uses a separate profile so it starts a new process instead of sending to an existing VS Code instance. **Always use a persistent path** (e.g., `~/.vscode-ext-debug`) rather than `/tmp/...` so authentication, settings, and extension state survive across sessions.
-
+set up
 **Without `--user-data-dir`**, VS Code detects the running instance, forwards the args to it, and exits immediately — you'll see "Sent env to running instance. Terminating..." and CDP never starts.
-
+set up
 > **⚠️ Authentication is required.** The Copilot Chat extension needs an authenticated GitHub session to function. Using a temp directory (e.g., `/tmp/...`) creates a fresh profile with no auth — the agent will hit a "Sign in to use Copilot" wall and model resolution will fail with "Language model unavailable."
->
+>set up
 > **Always use a persistent `--user-data-dir`** like `~/.vscode-ext-debug` (macOS/Linux) or `%APPDATA%\vscode-ext-debug` (Windows). On first use, launch once and sign in manually. Subsequent launches will reuse the auth session.
-
+set up
 ## Interacting with Monaco Editor (Chat Input, Code Editors)
 
 VS Code uses Monaco Editor for all text inputs including the Copilot Chat input. Monaco editors appear as textboxes in the accessibility snapshot but require specific agent-browser commands to interact with.
